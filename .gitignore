@@ -1,6 +1,6 @@
 ### editor
-.idea/
-.vscode
+/.idea/
+/.vscode/
 
 ### cache files
 *.cache
@@ -18,5 +18,5 @@
 
 ###> phpunit/phpunit ###
 /phpunit.xml
-.phpunit.cache
+/.phpunit.cache/
 ###< phpunit/phpunit ###
