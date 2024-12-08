@@ -1,8 +1,8 @@
 # /etc/nginx/conf.d/example.com.conf
 server {
-    server_name api.com www.api.com;
-    listen 80;
-    root /opt/app/public;
+    server_name ${SERVER_NAME};
+    listen ${SERVER_PORT};
+    root ${SERVER_ROOT};
 
     location / {
         # try to serve file directly, fallback to index.php
@@ -20,7 +20,7 @@ server {
         # when using PHP-FPM as a unix socket
         # fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
         # when PHP-FPM is configured to use TCP
-        fastcgi_pass fpm:9000;
+        fastcgi_pass ${SERVER_FPM_URL};
 
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
