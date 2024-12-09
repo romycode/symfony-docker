@@ -8,20 +8,10 @@
 $config = new PhpCsFixer\Config();
 
 return $config
-    ->setParallelConfig(
-        new PhpCsFixer\Runner\Parallel\ParallelConfig(2, 20),
-    )
+    ->setParallelConfig(new PhpCsFixer\Runner\Parallel\ParallelConfig(2, 20))
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->in([
-                __DIR__ . '/src',
-                __DIR__ . '/tests'
-            ])
-            ->exclude([
-                'var',
-                'vendor'
-            ])
-            ->append([
-                'file-to-include',
-            ])
+            ->in([__DIR__ . "/src", __DIR__ . "/tests"])
+            ->exclude(["var", "vendor"])
+            ->append([])
     );
