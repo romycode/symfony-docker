@@ -7,6 +7,8 @@ ADD --chmod=0755 https://cs.symfony.com/download/php-cs-fixer-v3.phar /usr/local
 RUN apk update --no-cache       ;\
     apk add --no-cache git bash
 
+
+
 FROM php AS dev
 
 ENV XDEBUG_MODE=off
@@ -18,3 +20,5 @@ COPY ./composer.json /opt/app
 
 RUN install-php-extensions xdebug                   ;\
     composer i --ignore-platform-reqs --no-scripts
+
+

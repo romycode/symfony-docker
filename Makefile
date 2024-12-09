@@ -34,3 +34,14 @@ test/functional:
 
 format:
 	docker compose exec fpm php-cs-fixer fix --config=.php-cs-fixer.php
+
+NAME = ""
+VALUE = ""
+secrets/set:
+	docker compose exec fpm /bin/bash -c "echo -n $(VALUE) | bin/console secrets:set $(NAME) -"
+
+secrets/list:
+	docker compose exec fpm bin/console secrets:list --reveal
+
+migrate:
+	docker compose exec fpm bin/console d:m:m
