@@ -24,3 +24,20 @@ services:
       - SERVER_PORT=9999
       - SERVER_ROOT=/opt/app/public
       - SERVER_FPM_URL=fpm:9000
+
+  database:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_PASSWORD: database
+      POSTGRES_USER: database
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "database", "-U", "database"]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
+
+volumes:
+  database_data:

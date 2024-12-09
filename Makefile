@@ -28,7 +28,7 @@ secrets/list:
 	docker compose exec fpm bin/console secrets:list --reveal
 
 migrate:
-	docker compose exec fpm bin/console d:m:m
+	docker compose exec fpm bin/console d:m:m --allow-no-migration --all-or-nothing --no-interaction
 
 test:
 	docker compose exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=default

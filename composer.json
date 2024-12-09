@@ -7,6 +7,9 @@
         "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.13.1",
+        "doctrine/doctrine-migrations-bundle": "^3.3.1",
+        "doctrine/orm": "^3.3",
         "symfony/console": "7.2.*",
         "symfony/dotenv": "7.2.*",
         "symfony/flex": "^2.4.7",
@@ -15,11 +18,12 @@
         "symfony/yaml": "7.2.*"
     },
     "require-dev": {
-        "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan": "^2.0",
-        "phpstan/phpstan-phpunit": "^2.0",
+        "roave/security-advisories": "dev-latest",
+        "phpstan/extension-installer": "^1.4.3",
+        "phpstan/phpstan": "^2.0.3",
+        "phpstan/phpstan-phpunit": "^2.0.1",
         "phpstan/phpstan-symfony": "^2.0",
-        "phpunit/phpunit": "^11.4"
+        "phpunit/phpunit": "^11.5"
     },
     "config": {
         "allow-plugins": {
