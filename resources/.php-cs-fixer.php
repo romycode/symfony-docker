@@ -9,9 +9,10 @@ $config = new PhpCsFixer\Config();
 
 return $config
     ->setParallelConfig(new PhpCsFixer\Runner\Parallel\ParallelConfig(2, 20))
+    ->setCacheFile(__DIR__ . "/.php-cs-fixer.cache")
     ->setFinder(
         PhpCsFixer\Finder::create()
-            ->in([__DIR__ . "/src", __DIR__ . "/tests"])
-            ->exclude(["var", "vendor"])
+            ->in([__DIR__ . "/../src", __DIR__ . "/../tests"])
+            ->exclude([__DIR__ . "/../var", __DIR__ . "/../vendor"])
             ->append([])
     );

@@ -1,11 +1,11 @@
 services:
   fpm:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: resources/Dockerfile
       target: dev
     volumes:
-      - "./:/opt/app"
+      - "../:/opt/app"
       - "./rootfs/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -14,19 +14,17 @@ services:
 
   nginx:
     image: nginx:alpine
-    ports:
-      - "9999:9999"
     volumes:
-      - "./:/opt/app"
+      - "../:/opt/app"
       - "./rootfs/etc/nginx/templates/default.conf.template:/etc/nginx/templates/default.conf.template"
     environment:
-      - SERVER_NAME=localhost
-      - SERVER_PORT=9999
+      - SERVER_NAME=0.0.0.0
+      - SERVER_PORT=9111
       - SERVER_ROOT=/opt/app/public
       - SERVER_FPM_URL=fpm:9000
 
   database:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: database
       POSTGRES_PASSWORD: database

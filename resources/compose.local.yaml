@@ -1,0 +1,12 @@
+services:
+  fpm:
+    networks:
+      default:
+        aliases:
+          - fpm
+  nginx:
+    ports:
+      - "9111:9111"
+  database:
+    ports:
+      - "5432"

@@ -18,6 +18,6 @@ WORKDIR /opt/app
 COPY ./composer.lock /opt/app
 COPY ./composer.json /opt/app
 
-RUN install-php-extensions xdebug pdo pdo_pgsql       ;\
-    composer i --ignore-platform-reqs --no-scripts    ;\
+RUN install-php-extensions xdebug pdo pdo_pgsql pdo_mysql ;\
+    composer i --ignore-platform-reqs --no-scripts        ;\
     git config --global --add safe.directory /opt/app

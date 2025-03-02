@@ -1,49 +1,59 @@
 .SILENT:
 
+export COMPOSE_BAKE = true
+export COMPOSE_PROJECT_NAME = symfony-docker
+
+COMPOSE = docker compose -f resources/compose.yaml -f resources/compose.local.yaml
 
 build:
-	docker compose build
+	$(COMPOSE) build
 
 start:
-	docker compose up -d
+	$(COMPOSE) up -d
 
 start/debug: stop
-	env XDEBUG_MODE=debug docker compose up -d
+	env XDEBUG_MODE=debug $(COMPOSE) up -d
 
 stop:
-	docker compose stop
+	$(COMPOSE) stop
 
-destroy:
-	docker compose down -v --remove-orphans
+up:
+	$(COMPOSE) up -d --remove-orphans
 
-shell:
-	docker compose exec fpm /bin/bash
+down:
+	$(COMPOSE) down -v --remove-orphans
+
+bash:
+	$(COMPOSE) exec fpm /bin/bash
+
+zsh:
+	$(COMPOSE) exec fpm /bin/zsh
 
 NAME = ""
 VALUE = ""
 secrets/set:
-	docker compose exec fpm /bin/bash -c "echo -n $(VALUE) | bin/console secrets:set $(NAME) -"
+	$(COMPOSE) exec fpm /bin/bash -c "echo -n $(VALUE) | bin/console secrets:set $(NAME) -"
 
 secrets/list:
-	docker compose exec fpm bin/console secrets:list --reveal
+	$(COMPOSE) exec fpm bin/console secrets:list --reveal
 
 migrate:
-	docker compose exec fpm bin/console d:m:m --allow-no-migration --all-or-nothing --no-interaction
+	$(COMPOSE) exec fpm bin/console d:m:m --allow-no-migration --all-or-nothing --no-interaction
 
 test:
-	docker compose exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=default
+	$(COMPOSE) exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=default
 
 test/unit:
-	docker compose exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=Unit
+	$(COMPOSE) exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=Unit
 
 test/integration:
-	docker compose exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=Integration
+	$(COMPOSE) exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=Integration
 
 test/functional:
-	docker compose exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=Functional
+	$(COMPOSE) exec fpm env XDEBUG_MODE=coverage vendor/bin/phpunit --testsuite=Functional
 
 format:
-	docker compose exec fpm php-cs-fixer fix --config=.php-cs-fixer.php
+	$(COMPOSE) exec fpm php-cs-fixer fix --config="resources/.php-cs-fixer.php"
 
 analyse:
-	docker compose exec fpm vendor/bin/phpstan analyse -c phpstan.dist.neon src tests
+	$(COMPOSE) exec fpm vendor/bin/phpstan analyse -c resources/phpstan.dist.neon src tests
