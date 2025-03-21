@@ -1,0 +1,21 @@
+POST http://localhost:9111/dsp
+Content-Type: application/json
+
+{
+  "id": "1",
+  "code": "spotify",
+  "name": "Spotify"
+}
+
+###
+
+POST http://localhost:9111/dsp
+Content-Type: application/json
+
+{
+  "id": "2",
+  "code": "deezer",
+  "name": "Deezer"
+}
+
+###

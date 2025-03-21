@@ -3,13 +3,13 @@
 export COMPOSE_BAKE = true
 export COMPOSE_PROJECT_NAME = symfony-docker
 
-COMPOSE = docker compose -f resources/compose.yaml -f resources/compose.local.yaml
+COMPOSE = docker compose -f resources/compose.yaml
 
 build:
-	$(COMPOSE) build
+	$(COMPOSE) build --no-cache
 
 start:
-	$(COMPOSE) up -d
+	env XDEBUG_MODE=off $(COMPOSE) up -d
 
 start/debug: stop
 	env XDEBUG_MODE=debug $(COMPOSE) up -d
@@ -29,10 +29,11 @@ bash:
 zsh:
 	$(COMPOSE) exec fpm /bin/zsh
 
+env = "dev"
 NAME = ""
 VALUE = ""
 secrets/set:
-	$(COMPOSE) exec fpm /bin/bash -c "echo -n $(VALUE) | bin/console secrets:set $(NAME) -"
+	$(COMPOSE) exec fpm /bin/bash -c "echo -n $(VALUE) | bin/console secrets:set --env $(ENV) $(NAME) -"
 
 secrets/list:
 	$(COMPOSE) exec fpm bin/console secrets:list --reveal
